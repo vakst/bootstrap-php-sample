@@ -1,0 +1,122 @@
+@import "bootstrap-variables-override";
+@import "bootstrap";
+
+
+body {min-width:$screen-xs-min;}
+
+/**
+Top image
+ */
+.bg-image {
+  position: relative;
+}
+.bg-image img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@mixin col-padding($size) {
+  .row:not(:first-child)>.col-xs-10 {
+    padding-top: $size;
+  }
+  .col-xs-10 {
+    padding-bottom: $size;
+  }
+}
+
+$base-col-padding: 20px;
+$base-img-size: 190px;
+$xs-ratio: $screen-xs-min / $screen-md-min;
+$sm-ratio: $screen-sm-min / $screen-md-min;
+$lg-ratio: $screen-lg-min / $screen-md-min;
+
+
+
+@media (max-width: $screen-xs-max) {
+  body, .btn {font-size: ceil($font-size-base * $xs-ratio);}
+  @include col-padding(ceil($base-col-padding * $xs-ratio));
+  h2 {font-size: ceil($font-size-h2 * $xs-ratio);}
+  .media-right>img {
+    width: ceil($base-img-size * $xs-ratio); height: ceil($base-img-size * $xs-ratio);
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  body, .btn {font-size: ceil($font-size-base * $sm-ratio);}
+  @include col-padding(ceil($base-col-padding * $sm-ratio));
+  h2 {font-size: ceil($font-size-h2 * $sm-ratio);}
+  .media-right>img {
+    width: ceil($base-img-size * $sm-ratio); height: ceil($base-img-size * $sm-ratio);
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  body, .btn {font-size: $font-size-base;}
+  @include col-padding($base-col-padding);
+  h2 {font-size: $font-size-h2;}
+  .media-right>img {
+    width: $base-img-size; height: $base-img-size;
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  body, .btn {font-size: ceil($font-size-base * $lg-ratio);}
+  @include col-padding(ceil($base-col-padding * $lg-ratio));
+  h2 {font-size: ceil($font-size-h2 * $lg-ratio);}
+  .media-right>img {
+    width: ceil($base-img-size * $lg-ratio); height: ceil($base-img-size * $lg-ratio);
+  }
+}
+
+.sign {
+  @extend h2;
+  color:#fff;
+  background-color: #000;
+  margin: 0;
+  padding: 5px;
+}
+
+.pager>li>a {
+  border: 1px solid #fff;
+  padding-right: 11px;
+  padding-left: 11px;
+  border-radius: 8px;
+}
+
+.pager>li>a:hover  {
+  border: 1px solid #ddd;
+}
+
+.pager>li>a {
+  color:#000;
+}
+
+.pager>li>span {
+  border: 1px solid #ddd;
+  padding-right: 11px;
+  padding-left: 11px;
+  border-radius: 8px;
+  background-color: #eee;
+}
+
+/**
+font bold size
+ */
+.font-bold {
+  font-weight: bold;
+}
+
+
+/**
+hr
+ */
+.row:not(:last-child)>.col-xs-10 {
+  border-bottom: 1px solid #ccc;
+}
+
+.modal-header {
+  background-color: #000;
+  margin:0;
+  color:#fff;
+}

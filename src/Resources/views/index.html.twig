@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Starships</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="bg-image">
+            <img src="/img/startship.jpg">
+        </div>
+        <div class="sign text-center">Starships</div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    {% include 'pagination.html.twig' with {
+    currentPage: currentPage,
+    paginationPath: "/p/",
+    lastPage: totalPages
+    } only %}
+    {% for ship in shipList %}
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="media">
+                    <div class="media-body">
+                        <h2 class="media-heading">{{ ship['name'] }}</h2>
+                        {% if ship['length'] is defined %}
+                            <div class="text-desc"><span class="font-bold">Length:</span> {{ ship['length'] }}</div>
+                        {% endif %}
+                        {% if ship['crew'] is defined %}
+                            <div class="text-desc"><span class="font-bold">Crew:</span> {{ ship['crew'] }}</div>
+                        {% endif %}
+                        {% if ship['passengers'] is defined %}
+                            <div class="text-desc"><span class="font-bold">Passengers:</span> {{ ship['passengers'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['manufacturer'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">Manufacturer:</span> {{ ship['manufacturer'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['starship_class'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">Starship Class:</span> {{ ship['starship_class'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['hyperdrive_rating'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">Hyperdrive Rating:</span> {{ ship['hyperdrive_rating'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['cargo_capacity'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">Cargo Capacity:</span> {{ ship['cargo_capacity'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['cost_in_credits'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">Cost in Credits:</span> {{ ship['cost_in_credits'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['max_atmosphering_speed'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">Max Atmosphering Speed:</span> {{ ship['max_atmosphering_speed'] }}
+                            </div>
+                        {% endif %}
+                        {% if ship['MGLT'] is defined %}
+                            <div class="text-desc hidden"><span class="font-bold">MGLT:</span> {{ ship['MGLT'] }}
+                            </div>
+                        {% endif %}
+                        <div class="text-desc"><br></div>
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" data-toggle="modal">More info &raquo;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% if ship['crew'] is defined %}
+                        <div class="media-right">
+                            <img src="/img/starships/{{ ship['name'] | lower | replace({' ': "-"}) }}.png">
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+    function toggleLoader() {
+        $("#sModal > div > div").toggle()
+    }
+
+    $(document).ready(function () {
+        $("button[data-toggle=modal]").click(function () {
+            var that = this
+            toggleLoader()
+
+            $("#sModal > div > div:not([loader]):first").each(function () {
+                $(this).find("div[class=modal-header] > h2:first").html($(that).closest('.media-body').find("h2[class=media-heading]:first").html())
+                $(this).find("div[class=modal-body]").empty();
+
+                var modalContent = this
+                $(that).closest('.media-body').find("div[class*=hidden]").each(function () {
+                    $(modalContent).find("div[class=modal-body]").append($("<div>").addClass("text-desc").html($(this).html()))
+
+                })
+            })
+
+            toggleLoader()
+            $("#sModal").modal()
+        })
+    })
+</script>
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" id="sModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" loader style="display:none">
+            <div class="modal-header"><h2 style="margin:0;">Loading</h2></div>
+            <div class="modal-body text-center">
+                <img src="img/loading.gif">
+            </div>
+        </div>
+        <div class="modal-content">
+            <div class="modal-header"><h2 style="margin:0;"></h2></div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+api:
+  url: "http://swapi.co/api/starships/?page=%d&format=json"
+  perPage: 10
+memcache:
+  host: 127.0.0.1
+  port: 11211
